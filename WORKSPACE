@@ -30,11 +30,24 @@ py_repositories()
 #       https://github.com/bazelbuild/rules_python/blob/main/proposals/2019-02-12-design-for-a-python-toolchain.md
 #   * Available toolchains:
 #       https://github.com/bazelbuild/rules_python/blob/main/python/versions.bzl
-python_register_toolchains(
-    name = "python310",
-    python_version = "3.10.9",
-)
+register_toolchains("//tools/python:python_toolchain")
+
+# python_register_toolchains(
+#     name = "python310",
+#     python_version = "3.10",
+# )
 
 load("@rules_python//python/pip_install:repositories.bzl", "pip_install_dependencies")
 
 pip_install_dependencies()
+
+load("@rules_python//python:pip.bzl", "pip_parse")
+
+pip_parse(
+    name = "python_deps",
+    requirements_lock = "//tools/python:requirements_lock.txt",
+)
+
+load("@python_deps//:requirements.bzl", _install_deps = "install_deps")
+
+_install_deps()
