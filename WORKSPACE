@@ -30,12 +30,19 @@ py_repositories()
 #       https://github.com/bazelbuild/rules_python/blob/main/proposals/2019-02-12-design-for-a-python-toolchain.md
 #   * Available toolchains:
 #       https://github.com/bazelbuild/rules_python/blob/main/python/versions.bzl
-register_toolchains("//tools/python:python_toolchain")
-
-# python_register_toolchains(
-#     name = "python310",
-#     python_version = "3.10",
-# )
+# CAVEAT: on darwin, this could require potentially updating `coreutils`, the reason
+# explained here: https://github.com/bazelbuild/rules_python/issues/725#issuecomment-1156864845
+#   Symptoms: you get bazel erro during making the fetched interperter repo read-only:
+#   > Error in fail: Failed to make interpreter installation read-only. 'chmod' error msg
+#
+# For non-hermetic way, use
+#
+#   register_toolchains("//tools/python:python_toolchain")
+#
+python_register_toolchains(
+    name = "python310",
+    python_version = "3.10",
+)
 
 load("@rules_python//python/pip_install:repositories.bzl", "pip_install_dependencies")
 
