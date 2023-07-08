@@ -1,0 +1,19 @@
+# Bazel
+/bazel-*
+compile_commands.json
+
+__pycache__/
+.cache/
+.ccls-cache/
+.ipynb_checkpoints/
+
+/.venv/
+
+# .env file is read by some IDE to set up pythonpaths
+/.env
+
+
+# VIM
+.vim/
+
+
