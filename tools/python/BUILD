@@ -37,3 +37,17 @@ toolchain(
     toolchain = ":python_runtime_pair",
     toolchain_type = "@bazel_tools//tools/python:toolchain_type",
 )
+
+# Exporting virtual environment
+load("@rules_pyvenv//:venv.bzl", "py_venv")  # buildifier: disable=load-on-top
+load("@python_deps//:requirements.bzl", _python_all_requirements = "all_requirements")  # buildifier: disable=load-on-top
+
+# Use this target as follows:
+# bazel run //tools/python:export_all_requirements
+py_venv(
+    name = "export_all_requirements",
+    always_link = True,
+    tags = ["manual"],
+    venv_location = ".venv/devenv",
+    deps = _python_all_requirements,
+)
