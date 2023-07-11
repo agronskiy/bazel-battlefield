@@ -1,5 +1,5 @@
 # bazel-battlefield
-Playground and battlefield for bazel
+Fighting with bazel for better future :D 
 
 # Further reading
 
