@@ -1,0 +1,6 @@
+load("//bazel/toolchains/sass:repo.bzl", "declare_all_repos")
+load("//bazel/toolchains/sass:toolchain.bzl", "register_all_toolchains")
+
+declare_all_repos()
+
+register_all_toolchains()
